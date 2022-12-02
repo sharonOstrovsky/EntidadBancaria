@@ -8,11 +8,12 @@ public class CuentaBancaria {
     private int tarjeta;
     private float saldo;
 
+
     public CuentaBancaria() {
         this.saldo = 0;
     }
 
-    public CuentaBancaria(String usuario, String clave, Cliente cliente, int tarjeta) {
+    public CuentaBancaria(String usuario, String clave, Cliente cliente, int tarjeta, float saldo) {
         this.usuario = usuario;
         this.clave = clave;
         this.cliente = cliente;
