@@ -16,13 +16,14 @@ public class BancoService {
     Scanner input = new Scanner(System.in).useDelimiter("\n");
     CuentaBancariaService cuentaServicio = new CuentaBancariaService();
     ClienteService clienteServicio = new ClienteService();
+
     //creo un banco con 10 cuentas bancarias
     public Banco crearBanco(){
 
         Banco banco = new Banco();
         ArrayList<CuentaBancaria> cuentas = new ArrayList<>();
 
-        while(cuentas.size() != 2){
+        while(cuentas.size() != 10){
             Cliente cliente = clienteServicio.crearCliente();
             if(esMayorEdad(cliente)){
                 CuentaBancaria cuenta = cuentaServicio.crearCuenta(cliente);
@@ -30,12 +31,13 @@ public class BancoService {
             }
         }
 
-
         banco.setCuentas(cuentas);
 
         return banco;
     }
 
+    //manu del banco
+    //podes ingresar a una cuenta o registrar una nueva
     public void menu(Banco banco){
 
         boolean salir = false;
@@ -68,7 +70,9 @@ public class BancoService {
 
     }
 
-    public void registrarse(Banco banco){
+    //registrar una cuenta bancaria nueva en el banco
+    //se llama desde el menu de los bancos
+    private void registrarse(Banco banco){
         System.out.println("");
         System.out.println("----------REGISTRARSE----------");
         System.out.println("");
@@ -85,7 +89,9 @@ public class BancoService {
         System.out.println("");
     }
 
-    public boolean esMayorEdad(Cliente cliente){
+    //ver si el cliente es mayor de edad
+    //se llama desde crear banco para ver si puede crearse una cuenta bancaria
+    private boolean esMayorEdad(Cliente cliente){
         return cliente.getEdad() >= 18;
     }
 

@@ -10,6 +10,7 @@ public class ClienteService {
 
     Scanner input = new Scanner(System.in).useDelimiter("\n");
 
+    //crea el cliente mediante un formulario que el usuario debe completar y lo devuelve.
     public Cliente crearCliente(){
         Cliente cliente = new Cliente();
 
@@ -18,9 +19,9 @@ public class ClienteService {
         System.out.println("");
 
         System.out.print("Nombre: ");
-        cliente.setNombre(input.nextLine());
+        cliente.setNombre(input.next());
         System.out.print("Apellido: ");
-        cliente.setApellido(input.nextLine());
+        cliente.setApellido(input.next());
         System.out.print("DNI: ");
         cliente.setDocumento(input.nextInt());
         System.out.print("Edad: ");
