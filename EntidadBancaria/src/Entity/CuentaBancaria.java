@@ -18,7 +18,7 @@ public class CuentaBancaria {
         this.clave = clave;
         this.cliente = cliente;
         this.tarjeta = tarjeta;
-        this.saldo = 0;
+        this.saldo = saldo;
     }
 
     public String getUsuario() {

@@ -12,18 +12,14 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-     //   BancoService servicoBanco = new BancoService();
+        BancoService servicoBanco = new BancoService();
+        Banco banco = servicoBanco.crearBancoPreArmado();
+        servicoBanco.menu(banco);
+
+
        // Banco banco = servicoBanco.crearBanco();
         //servicoBanco.menu(banco);
-        TarjetaService tarjetaServicio = new TarjetaService();
-        Tarjeta tarjeta = tarjetaServicio.crearTarjeta();
-        System.out.println(tarjeta);
-        Tarjeta tarjeta2 = tarjetaServicio.crearTarjeta();
-        System.out.println(tarjeta2);
-        Tarjeta tarjeta3 = tarjetaServicio.crearTarjeta();
-        System.out.println(tarjeta3);
-        Tarjeta tarjeta4 = tarjetaServicio.crearTarjeta();
-        System.out.println(tarjeta4);
+
 /*
         ClienteService serv  = new ClienteService();
         Cliente cliente = serv.crearCliente();
