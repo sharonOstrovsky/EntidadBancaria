@@ -11,15 +11,21 @@ package Service;
 //consultar datos
 import Entity.Cliente;
 import Entity.CuentaBancaria;
+import Entity.Tarjeta;
+import Utility.Comparators;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 //falta validar
 public class CuentaBancariaService {
 
     Scanner input = new Scanner(System.in).useDelimiter("\n");
     ClienteService clienteServicio = new ClienteService();
+    TarjetaService tarjetaServicio = new TarjetaService();
+
 
     //crea la cuenta bancaria de un cliente pasado por parametro y la devuelve
     //crea el usuario y la contraseña, y confirmacion de la contraseña creada
@@ -51,17 +57,17 @@ public class CuentaBancariaService {
         cuenta.setClave(clave);
         cuenta.setUsuario(usuario);
 
-        cuenta.setTarjeta(crearTarjeta());
+        cuenta.setTarjeta(tarjetaServicio.crearTarjeta());
 
         return cuenta;
 
     }
 
 
-    //crea la trajeta cuando se crea la cuenta bancaria
-    private int crearTarjeta(){
-       return Aleatorio(100000000, 999999999);
-    }
+
+
+
+
 
     //ingresar a la cuenta bancaria
     //si no coincide el usuario o la contraseña vuelve a intentarlo (se podria agregar que tenga solo 3 intentos)
@@ -241,8 +247,5 @@ public class CuentaBancariaService {
 
 
 
-    private static int Aleatorio(int min, int max) {
-        int range = (max - min) + 1;
-        return (int)(Math.random() * range) + min;
-    }
+
 }

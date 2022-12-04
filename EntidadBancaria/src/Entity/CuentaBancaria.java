@@ -5,7 +5,7 @@ public class CuentaBancaria {
     private String usuario;
     private String clave;
     private Cliente cliente;
-    private int tarjeta;
+    private Tarjeta tarjeta;
     private float saldo;
 
 
@@ -13,7 +13,7 @@ public class CuentaBancaria {
         this.saldo = 0;
     }
 
-    public CuentaBancaria(String usuario, String clave, Cliente cliente, int tarjeta, float saldo) {
+    public CuentaBancaria(String usuario, String clave, Cliente cliente, Tarjeta tarjeta, float saldo) {
         this.usuario = usuario;
         this.clave = clave;
         this.cliente = cliente;
@@ -45,11 +45,11 @@ public class CuentaBancaria {
         this.cliente = cliente;
     }
 
-    public int getTarjeta() {
+    public Tarjeta getTarjeta() {
         return tarjeta;
     }
 
-    public void setTarjeta(int tarjeta) {
+    public void setTarjeta(Tarjeta tarjeta) {
         this.tarjeta = tarjeta;
     }
 

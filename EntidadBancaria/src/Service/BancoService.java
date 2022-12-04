@@ -70,6 +70,7 @@ public class BancoService {
 
     }
 
+
     //registrar una cuenta bancaria nueva en el banco
     //se llama desde el menu de los bancos
     private void registrarse(Banco banco){
@@ -79,10 +80,15 @@ public class BancoService {
 
         ArrayList<CuentaBancaria> cuentasAux = new ArrayList<>();
         Cliente cliente = clienteServicio.crearCliente();
-        CuentaBancaria cuenta = cuentaServicio.crearCuenta(cliente);
-        cuentasAux = banco.getCuentas();
-        cuentasAux.add(cuenta);
-        banco.setCuentas(cuentasAux);
+        if(!esMayorEdad(cliente)){
+            System.out.println("Lo siento, debe ser mayor de edad para crear una cuenta");
+        }else{
+            CuentaBancaria cuenta = cuentaServicio.crearCuenta(cliente);
+            cuentasAux = banco.getCuentas();
+            cuentasAux.add(cuenta);
+            banco.setCuentas(cuentasAux);
+        }
+
 
         System.out.println("");
         System.out.println("----------CUENTA REGISTRADA----------");
