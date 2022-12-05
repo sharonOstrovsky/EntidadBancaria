@@ -274,18 +274,21 @@ public class CuentaBancariaService {
     }
 
     public double validarIngresoNumeroDouble(){
-        double num = -1;
+        double num = -1.0;
+        Scanner scanner = new Scanner(System.in).useDelimiter("\n");
         do{
-            Scanner scanner = new Scanner(System.in).useDelimiter("");
+           // Scanner scanner = new Scanner(System.in).useDelimiter("");
             try{
                 num = scanner.nextDouble();
             }catch(InputMismatchException e){
                 System.out.println(e.getMessage() + ": solo se puede ingresar numeros enteros, intente nuevamente");
+                scanner.nextLine();
             }catch(Exception e){
                 System.out.println(e.getMessage() + ": Error del sistema, intente nuevamente");
+                scanner.nextLine();
             }
 
-        }while(num<=0);
+        }while(num<=0.0);
         return num;
     }
 

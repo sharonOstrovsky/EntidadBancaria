@@ -101,7 +101,7 @@ public class ClienteService {
 
         int num = -1;
         do{
-            Scanner scanner = new Scanner(System.in).useDelimiter("");
+            Scanner scanner = new Scanner(System.in).useDelimiter("\n");
             try{
                 num = scanner.nextInt();
             }catch(InputMismatchException e){

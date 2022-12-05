@@ -14,7 +14,7 @@ public class TarjetaService {
         Tarjeta tarjeta = new Tarjeta();
         String numTarjeta = "";
 
-        for (int i = 0; i < 16; i++) {//16
+        for (int i = 0; i < 16; i++) {
 
             numTarjeta += Integer.toString(Aleatorio(0,9));
 
