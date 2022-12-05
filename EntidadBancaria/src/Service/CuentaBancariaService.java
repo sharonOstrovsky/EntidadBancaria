@@ -1,18 +1,8 @@
 package Service;
-//crear cuenta bancaria
 //validar usuario y contraseña de la creacion
-//usuario,clave, client, tarjeta, saldo
-//generar tarjeta
-//transaccion entre cuentas bancarias (sacar plata de una y ponerlo en otra)
-//retirar dinero
-//consultar saldo
-//ingresar dinero
-//ingresar a la cuenta de banco
 //consultar datos
 import Entity.Cliente;
 import Entity.CuentaBancaria;
-import Entity.Tarjeta;
-import Utility.Comparators;
 
 import java.util.*;
 

@@ -108,6 +108,8 @@ public class BancoService {
                               System.out.println("");
                          } */
                     }
+                }else{
+                    System.out.println("opcion no valida");
                 }
                 System.out.println("Desea salir? (s/n)");
                 String volver = clienteServicio.validarIngresoCadena();
