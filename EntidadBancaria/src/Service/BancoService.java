@@ -92,7 +92,7 @@ public class BancoService {
         System.out.println("");
 
         System.out.println("¿Ingresar o Registrarse?");
-        String rta = input.next();
+        String rta = clienteServicio.validarIngresoCadena();
         if(rta.equalsIgnoreCase("registrarse")){
             registrarse(banco);
         }else if(rta.equalsIgnoreCase("ingresar")){
@@ -100,7 +100,7 @@ public class BancoService {
 
                 if(cuentaServicio.ingresarACuenta(banco.getCuentas())){
                     System.out.println("desea ingresar a otra cuenta? (s/n)");
-                    String volver = input.next();
+                    String volver = clienteServicio.validarIngresoCadena();
                     if(volver.equalsIgnoreCase("n")){
                         salir = true;
                         System.out.println("");

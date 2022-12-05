@@ -14,10 +14,7 @@ import Entity.CuentaBancaria;
 import Entity.Tarjeta;
 import Utility.Comparators;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Scanner;
-import java.util.TreeSet;
+import java.util.*;
 
 //falta validar
 public class CuentaBancariaService {
@@ -81,9 +78,9 @@ public class CuentaBancariaService {
         System.out.println("");
 
         System.out.print("Usuario: ");
-        String usuario = input.next();
+        String usuario = clienteServicio.validarIngresoCadenaAlfanumerica();
         System.out.print("Contraseña: ");
-        String clave = input.next();
+        String clave = clienteServicio.validarIngresoCadenaAlfanumerica();
 
         CuentaBancaria cuenta = encontrarCuentaPorUsuario(cuentas, usuario);
 
@@ -119,7 +116,7 @@ public class CuentaBancariaService {
             System.out.println("4. Tranferencia");
             System.out.println("5. Cerrar Sesion");
 
-            switch(input.nextInt()){
+            switch(clienteServicio.validarIngresoNumeroEnero()){
                 case 1:
                     System.out.println("");
                     System.out.println("----------CONSULTAR SALDO----------");
@@ -137,7 +134,7 @@ public class CuentaBancariaService {
                     System.out.println("");
 
                     System.out.print("¿Cuanto dinero deseas ingresar? ");
-                    float dineroIngresar = input.nextFloat();
+                    float dineroIngresar = validarIngresoNumeroFloat();
                     ingresarDinero(cuenta, dineroIngresar);
 
                     System.out.println("");
@@ -150,7 +147,7 @@ public class CuentaBancariaService {
                     System.out.println("");
 
                     System.out.print("¿Cuanto dinero desea retirar? ");
-                    float dineroRetirar = input.nextFloat();
+                    float dineroRetirar = validarIngresoNumeroFloat();
                     retirarDinero(cuenta, dineroRetirar);
 
                     System.out.println("");
@@ -214,11 +211,11 @@ public class CuentaBancariaService {
     private void tranferencia(ArrayList<CuentaBancaria> cuentas, CuentaBancaria cuenta){
 
         System.out.print("Ingrese el nombre de usuario al que desea transferir: ");
-        String usuarioATrasferir = input.next();
+        String usuarioATrasferir = clienteServicio.validarIngresoCadenaAlfanumerica();
         CuentaBancaria cuentaATrasferir = encontrarCuentaPorUsuario(cuentas, usuarioATrasferir);
         System.out.println("Su saldo actual es: " + cuenta.getSaldo());
         System.out.println("¿Cuanto dinero quiere enviar?");
-        float dinero = input.nextFloat();
+        float dinero = validarIngresoNumeroFloat();
 
         ingresarDinero(cuentaATrasferir, dinero);
         retirarDinero(cuenta, dinero);
@@ -243,6 +240,29 @@ public class CuentaBancariaService {
         }
         return null;
 
+    }
+
+    public float validarIngresoNumeroFloat(){
+        float num = 0;
+        boolean validador = true;
+        do{
+            Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+            try{
+                num = scanner.nextFloat();
+                if(num > 0){
+                    validador = false;
+                }else{
+                    System.out.println("El numero ingresado no es valido, no se permite el ingreso de numeros negativos");
+                }
+
+            }catch(InputMismatchException e){
+                System.out.println(e.getMessage() + ": solo se puede ingresar numeros enteros, intente nuevamente");
+            }catch(Exception e){
+                System.out.println(e.getMessage() + ": Error del sistema, intente nuevamente");
+            }
+
+        }while(validador);
+        return num;
     }
 
 
