@@ -60,7 +60,7 @@ public class CuentaBancariaService {
     //si no coincide el usuario o la contraseña vuelve a intentarlo (se podria agregar que tenga solo 3 intentos)
     //una vez que ingreso a la cuenta se abre el menu de las cuentas bancarias hasta que cierra sesion
     //se llama desde el manu de los bancos
-    public boolean ingresarACuenta( ArrayList<CuentaBancaria> cuentas){
+    public void ingresarACuenta( ArrayList<CuentaBancaria> cuentas){
         boolean ingreso = false;
 
         System.out.println("");
@@ -73,7 +73,7 @@ public class CuentaBancariaService {
         String clave = clienteServicio.validarIngresoCadenaAlfanumerica();
 
         CuentaBancaria cuenta = encontrarCuentaPorUsuario(cuentas, usuario);
-
+    if(cuenta != null){
         if( !usuario.equals( cuenta.getUsuario() )  || !clave.equals( cuenta.getClave() ) ){
             System.out.println("clave o contraseña incorrecta, vulva a intentarlo");
             System.out.println("");
@@ -84,13 +84,17 @@ public class CuentaBancariaService {
             System.out.println("BIENVENIDO "+ cuenta.getCliente().getNombre() + " " + cuenta.getCliente().getApellido());
             ingreso = true;
         }
+    }else{
+        System.out.println("usuario no encontrado");
+    }
+
 
 
         if(ingreso){
             menuCuentas(cuentas, cuenta);
         }
 
-        return ingreso;
+
     }
 
     //menu de las cuentas bancarias
@@ -233,25 +237,18 @@ public class CuentaBancariaService {
     }
 
     public float validarIngresoNumeroFloat(){
-        float num = 0;
-        boolean validador = true;
+        float num = -1;
         do{
-            Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+            Scanner scanner = new Scanner(System.in).useDelimiter("");
             try{
                 num = scanner.nextFloat();
-                if(num > 0){
-                    validador = false;
-                }else{
-                    System.out.println("El numero ingresado no es valido, no se permite el ingreso de numeros negativos");
-                }
-
             }catch(InputMismatchException e){
                 System.out.println(e.getMessage() + ": solo se puede ingresar numeros enteros, intente nuevamente");
             }catch(Exception e){
                 System.out.println(e.getMessage() + ": Error del sistema, intente nuevamente");
             }
 
-        }while(validador);
+        }while(num<=0);
         return num;
     }
 

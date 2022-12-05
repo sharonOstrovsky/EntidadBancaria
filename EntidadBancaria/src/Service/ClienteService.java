@@ -102,18 +102,18 @@ public class ClienteService {
     }
 
     public int validarIngresoNumeroEnero(){
-      //  Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+       // Scanner scanner = new Scanner(System.in).useDelimiter("\n");
         int num = -1;
         do{
-            Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+            Scanner scanner = new Scanner(System.in).useDelimiter("");
             try{
                 num = scanner.nextInt();
             }catch(InputMismatchException e){
                 System.out.println(e.getMessage() + ": solo se puede ingresar numeros enteros, intente nuevamente");
-               // scanner.next();
+             //   scanner.next();
             }catch(Exception e){
                 System.out.println(e.getMessage() + ": Error del sistema, intente nuevamente");
-               // scanner.next();
+              // scanner.next();
             }
 
         }while(num<=0);
