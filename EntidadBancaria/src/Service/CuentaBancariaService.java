@@ -19,7 +19,7 @@ public class CuentaBancariaService {
     //agregar validacion del usuario y contraseña(que sea de las de 8 caracteres, que contenga numeros,)
     public CuentaBancaria crearCuenta(Cliente cliente){
         String clave;
-        String confirm;
+        String confirmClave;
         boolean claveConfirmada = false;
         CuentaBancaria cuenta = new CuentaBancaria();
 
@@ -31,8 +31,8 @@ public class CuentaBancariaService {
                 System.out.println("Ingrese la constraseña: ");
                 clave = input.next();
                 System.out.println("Confirme la contraseña: ");
-                confirm = input.next();
-                if(!clave.equals(confirm)){
+                confirmClave = input.next();
+                if(!clave.equals(confirmClave)){
                     System.out.println("las contraseñas no coinciden");
                 }else{
                     claveConfirmada = true;
@@ -88,19 +88,17 @@ public class CuentaBancariaService {
         System.out.println("usuario no encontrado");
     }
 
-
-
         if(ingreso){
             menuCuentas(cuentas, cuenta);
         }
-
 
     }
 
     //menu de las cuentas bancarias
     //se llama desde ingresarCuentas
     public void menuCuentas(ArrayList<CuentaBancaria> cuentas, CuentaBancaria cuenta){
-        boolean cerrarSecion = false;
+        boolean cerrarSesion = false;
+        int opcionElegida;
         do{
             System.out.println("");
             System.out.println("¿Que desea realizar? ");
@@ -108,9 +106,12 @@ public class CuentaBancariaService {
             System.out.println("2. Ingresar Dinero");
             System.out.println("3. Retirar Dinero");
             System.out.println("4. Tranferencia");
-            System.out.println("5. Cerrar Sesion");
+            System.out.println("5. Consultar Datos de la cuenta");
+            System.out.println("6. Cerrar Sesion");
 
-            switch(clienteServicio.validarIngresoNumeroEnero()){
+            opcionElegida = clienteServicio.validarIngresoNumeroEnero();
+
+            switch(opcionElegida){
                 case 1:
                     System.out.println("");
                     System.out.println("----------CONSULTAR SALDO----------");
@@ -128,7 +129,7 @@ public class CuentaBancariaService {
                     System.out.println("");
 
                     System.out.print("¿Cuanto dinero deseas ingresar? ");
-                    float dineroIngresar = validarIngresoNumeroFloat();
+                    double dineroIngresar = validarIngresoNumeroDouble();
                     ingresarDinero(cuenta, dineroIngresar);
 
                     System.out.println("");
@@ -141,7 +142,7 @@ public class CuentaBancariaService {
                     System.out.println("");
 
                     System.out.print("¿Cuanto dinero desea retirar? ");
-                    float dineroRetirar = validarIngresoNumeroFloat();
+                    double dineroRetirar = validarIngresoNumeroDouble();
                     retirarDinero(cuenta, dineroRetirar);
 
                     System.out.println("");
@@ -160,7 +161,18 @@ public class CuentaBancariaService {
                     System.out.println("");
                     break;
                 case 5:
-                    cerrarSecion = true;
+                    System.out.println("");
+                    System.out.println("----------CONSULTAR DATOS----------");
+                    System.out.println("");
+
+                    consultarDatosCuenta(cuenta);
+
+                    System.out.println("");
+                    System.out.println("----------CONSULTAR DATOS----------");
+                    System.out.println("");
+                    break;
+                case 6:
+                    cerrarSesion = true;
                     System.out.println("");
                     System.out.println("----------SESION CERRADA----------");
                     System.out.println("");
@@ -169,7 +181,7 @@ public class CuentaBancariaService {
                     System.out.println("");
                     break;
             }
-        }while(!cerrarSecion);
+        }while(!cerrarSesion);
 
 
     }
@@ -177,15 +189,22 @@ public class CuentaBancariaService {
     //consultar el sado de la cuenta bancaria
     //se llama desde el menu de  las cuentas bancarias
     private void consultarSaldo(CuentaBancaria cuenta){
-        System.out.println("Cuenta " + cuenta.getCliente().getNombre() + " " + cuenta.getCliente().getApellido());
-        System.out.println("Saldo: " + cuenta.getSaldo());
+        String nombre = cuenta.getCliente().getNombre();
+        String apellido = cuenta.getCliente().getApellido();
+        double saldo = cuenta.getSaldo();
+
+        System.out.println("Cuenta " + nombre + " " + apellido);
+        System.out.println("Saldo: " + saldo);
     }
 
     //retirar dinero, recibe la cuenta y la cantidad de dinero a retirar
     ////se llama desde el menu de  las cuentas bancarias
-    private void retirarDinero(CuentaBancaria cuenta, float dinero){
-        if(cuenta.getSaldo() >= dinero){
-            cuenta.setSaldo(cuenta.getSaldo() - dinero);
+    private void retirarDinero(CuentaBancaria cuenta, double dinero){
+        double saldo = cuenta.getSaldo();
+        double nuevoSaldo;
+        if(saldo >= dinero){
+            nuevoSaldo = saldo - dinero;
+            cuenta.setSaldo(nuevoSaldo);
         }else{
             System.out.println("Saldo insuficiente");
         }
@@ -193,9 +212,10 @@ public class CuentaBancariaService {
 
     //ingresar dinero, recibe la cuenta y la cantidad de dinero a ingresar
     ////se llama desde el menu de  las cuentas bancarias
-    private void ingresarDinero(CuentaBancaria cuenta, float dinero){
-
-        cuenta.setSaldo(cuenta.getSaldo() + dinero);
+    private void ingresarDinero(CuentaBancaria cuenta, double dinero){
+        double saldo = cuenta.getSaldo();
+        double nuevoSaldo = saldo + dinero;
+        cuenta.setSaldo(nuevoSaldo);
 
     }
 
@@ -203,32 +223,49 @@ public class CuentaBancariaService {
     //cuenta es la cuanta bancaria que ingrese y que va a hacer la tranferencia con otra cuenta
     //se llama desde el menu de las cuentas bancarias
     private void tranferencia(ArrayList<CuentaBancaria> cuentas, CuentaBancaria cuenta){
+        double saldo = cuenta.getSaldo();
+        double nuevoSaldo;
 
         System.out.print("Ingrese el nombre de usuario al que desea transferir: ");
         String usuarioATrasferir = clienteServicio.validarIngresoCadenaAlfanumerica();
         CuentaBancaria cuentaATrasferir = encontrarCuentaPorUsuario(cuentas, usuarioATrasferir);
-        System.out.println("Su saldo actual es: " + cuenta.getSaldo());
+        System.out.println("Su saldo actual es: " + saldo);
         System.out.println("¿Cuanto dinero quiere enviar?");
-        float dinero = validarIngresoNumeroFloat();
+        double dinero = validarIngresoNumeroDouble();
 
-        ingresarDinero(cuentaATrasferir, dinero);
-        retirarDinero(cuenta, dinero);
-        //cuentaATrasferir.setSaldo(cuentaATrasferir.getSaldo() + dinero);
-        //cuenta.setSaldo(cuenta.getSaldo() - dinero);
+        if(saldo < dinero){
+            System.out.println("saldo insuficiente");
+        }else{
+            ingresarDinero(cuentaATrasferir, dinero);
+            retirarDinero(cuenta, dinero);
 
-        System.out.println("");
-        System.out.println("TRANSFERENCIA REALIZADA");
-        System.out.println("Su saldo actual es: " + cuenta.getSaldo());
-        System.out.println("");
+            nuevoSaldo = cuenta.getSaldo();
 
+            System.out.println("");
+            System.out.println("TRANSFERENCIA REALIZADA");
+            System.out.println("Su saldo actual es: " + nuevoSaldo);
+            System.out.println("");
+        }
 
     }
 
-    //busca a un nombre de usuario en la lista de cuentas bancarias y devuelve la cuenta bancaria que pertece ese usuario
-    private CuentaBancaria encontrarCuentaPorUsuario(ArrayList<CuentaBancaria> cuentas,String usuario){
+    private void consultarDatosCuenta(CuentaBancaria cuenta){
+        String nombre = cuenta.getCliente().getNombre();
+        String apellido = cuenta.getCliente().getApellido();
+        String tarjeta = cuenta.getTarjeta().getNumero();
+        double saldo = cuenta.getSaldo();
 
+        System.out.println("Titular: " + nombre + apellido);
+        System.out.println("Numero de Tarjeta: " + tarjeta);
+        System.out.println("Saldo: " + saldo);
+    }
+
+    //busca a un nombre de usuario en la lista de cuentas bancarias y devuelve la cuenta bancaria que pertece ese usuario
+    private CuentaBancaria encontrarCuentaPorUsuario(ArrayList<CuentaBancaria> cuentas,String usuarioBuscado){
+        String usuarioCliente;
         for (CuentaBancaria clientes : cuentas) {
-            if(clientes.getUsuario().equalsIgnoreCase(usuario)){
+            usuarioCliente = clientes.getUsuario();
+            if(usuarioCliente.equalsIgnoreCase(usuarioBuscado)){
                 return clientes;
             }
         }
@@ -236,12 +273,12 @@ public class CuentaBancariaService {
 
     }
 
-    public float validarIngresoNumeroFloat(){
-        float num = -1;
+    public double validarIngresoNumeroDouble(){
+        double num = -1;
         do{
             Scanner scanner = new Scanner(System.in).useDelimiter("");
             try{
-                num = scanner.nextFloat();
+                num = scanner.nextDouble();
             }catch(InputMismatchException e){
                 System.out.println(e.getMessage() + ": solo se puede ingresar numeros enteros, intente nuevamente");
             }catch(Exception e){

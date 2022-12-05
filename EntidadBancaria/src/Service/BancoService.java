@@ -52,7 +52,6 @@ public class BancoService {
         Cliente cliente10 = new Cliente("Alejandra", "Flons", 17345436, 65, "alejandra@hotmail.com", "calle 333", "Argentina");
 
         CuentaBancaria cuenta1 = new CuentaBancaria("sharon", "sharon", cliente1, tarjetaServicio.crearTarjeta(), 100000);
-        //public CuentaBancaria(String usuario, String clave, Cliente cliente, Tarjeta tarjeta, float saldo)
         CuentaBancaria cuenta2 = new CuentaBancaria("carlos", "carlos", cliente2, tarjetaServicio.crearTarjeta(), 150000);
         CuentaBancaria cuenta3 = new CuentaBancaria("federico", "federico", cliente3, tarjetaServicio.crearTarjeta(), 300000 );
         CuentaBancaria cuenta4 = new CuentaBancaria("m", "m", cliente4, tarjetaServicio.crearTarjeta(), 20000);
@@ -80,11 +79,11 @@ public class BancoService {
 
     }
 
-    //manu del banco
+    //menu del banco
     //podes ingresar a una cuenta o registrar una nueva
     public void menu(Banco banco){
 
-        boolean salir = false;
+        boolean salirDelMenuBanco = false;
 
         System.out.println("");
         System.out.println("----------BIENVENIDO/A AL BANCO----------");
@@ -94,20 +93,20 @@ public class BancoService {
             do{
                 System.out.println("¿Ingresar o Registrarse?");
                 String rta = clienteServicio.validarIngresoCadena();
-                if(rta.equalsIgnoreCase("registrarse")){
+                if(opcionesRegistrar(rta)){
                     registrarse(banco);
-                }else if(rta.equalsIgnoreCase("ingresar")){
+                }else if(opcionesIngresar(rta)){
                     cuentaServicio.ingresarACuenta(banco.getCuentas());
                 }else{
                     System.out.println("opcion no valida");
                 }
                 System.out.println("Desea salir? (s/n)");
-                String volver = clienteServicio.validarIngresoCadena();
-                if(volver.equalsIgnoreCase("s")) {
-                    salir = true;
+                String salir = clienteServicio.validarIngresoCadena();
+                if(opcionesSalir(salir)) {
+                    salirDelMenuBanco = true;
                 }
 
-            }while(!salir);
+            }while(!salirDelMenuBanco);
                 System.out.println("");
                 System.out.println("----------VUELVA PRONTO----------");
                 System.out.println("");
@@ -142,10 +141,21 @@ public class BancoService {
     //ver si el cliente es mayor de edad
     //se llama desde crear banco para ver si puede crearse una cuenta bancaria
     private boolean esMayorEdad(Cliente cliente){
-        return cliente.getEdad() >= 18;
+        int edad = cliente.getEdad();
+        return edad >= 18;
     }
 
+    private boolean opcionesRegistrar(String ingresoUsuario){
+        return ingresoUsuario.equalsIgnoreCase("registrarse") || ingresoUsuario.equalsIgnoreCase("r");
+    }
 
+    private boolean opcionesIngresar(String ingresoUsuario){
+        return ingresoUsuario.equalsIgnoreCase("ingresar") || ingresoUsuario.equalsIgnoreCase("i");
+    }
+
+    private boolean opcionesSalir(String ingresoUsuario){
+        return ingresoUsuario.equalsIgnoreCase("si") || ingresoUsuario.equalsIgnoreCase("s");
+    }
 }
 
 

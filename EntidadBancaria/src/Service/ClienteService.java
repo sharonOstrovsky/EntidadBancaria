@@ -19,16 +19,12 @@ public class ClienteService {
 
         System.out.print("Nombre: ");
         cliente.setNombre(validarIngresoCadena());
-        //cliente.setNombre(ingresarCadena());
-        //cliente.setNombre(input.next());
         System.out.print("Apellido: ");
         cliente.setApellido(validarIngresoCadena());
         System.out.print("DNI: ");
         cliente.setDocumento(validarIngresoNumeroEnero());
-        //cliente.setDocumento(input.nextInt());
         System.out.print("Edad: ");
         cliente.setEdad(validarIngresoNumeroEnero());
-        //cliente.setEdad(input.nextInt());
         System.out.print("Email: ");
         cliente.setMail(validarIngresoCadenaAlfanumerica());
         System.out.print("Direccion: ");
@@ -47,11 +43,11 @@ public class ClienteService {
     public String validarIngresoCadena(){
         Scanner sc = new Scanner(System.in);
         boolean check = true;
-        String s = "";
+        String cadena = "";
         do{
             try{
-                s = sc.nextLine();
-                validateCadena(s);
+                cadena = sc.nextLine();
+                validarCadena(cadena);
                 check = false;
             }catch(InputMismatchException e){
                 System.out.println(e.getMessage());
@@ -61,17 +57,17 @@ public class ClienteService {
             }
         }while(check);
 
-        return s;
+        return cadena;
     }
 
     public String validarIngresoCadenaAlfanumerica(){
         Scanner sc = new Scanner(System.in);
         boolean check = true;
-        String s = "";
+        String cadena = "";
         do{
             try{
-                s = sc.nextLine();
-                validateCadenaAlfanumerico(s);
+                cadena = sc.nextLine();
+                validarCadenaAlfanumerico(cadena);
                 check = false;
             }catch(InputMismatchException e){
                 System.out.println(e.getMessage());
@@ -81,28 +77,28 @@ public class ClienteService {
             }
         }while(check);
 
-        return s;
+        return cadena;
     }
 
-    public static void validateCadena(String s)throws Exception {
-        s = s.toLowerCase();
-        if(s.isEmpty()) {
+    public void validarCadena(String cadena)throws Exception {
+        cadena = cadena.toLowerCase();
+        if(cadena.isEmpty()) {
             throw new Exception("Porfavor, ingrese un valor");
         }
-        if(!(s.matches("[a-zA-Z ,]+"))){
+        if(!(cadena.matches("[a-zA-Z ,]+"))){
             throw new Exception("Cuidado! Solo se puede ingresar letras");
         }
     }
 
-    public static void validateCadenaAlfanumerico(String s)throws Exception {
-        s = s.toLowerCase();
-        if(s.isEmpty()) {
+    public void validarCadenaAlfanumerico(String cadena)throws Exception {
+        cadena = cadena.toLowerCase();
+        if(cadena.isEmpty()) {
             throw new Exception("Porfavor, ingrese un valor");
         }
     }
 
     public int validarIngresoNumeroEnero(){
-       // Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+
         int num = -1;
         do{
             Scanner scanner = new Scanner(System.in).useDelimiter("");
@@ -110,13 +106,12 @@ public class ClienteService {
                 num = scanner.nextInt();
             }catch(InputMismatchException e){
                 System.out.println(e.getMessage() + ": solo se puede ingresar numeros enteros, intente nuevamente");
-             //   scanner.next();
             }catch(Exception e){
                 System.out.println(e.getMessage() + ": Error del sistema, intente nuevamente");
-              // scanner.next();
             }
 
         }while(num<=0);
+
         return num;
     }
 

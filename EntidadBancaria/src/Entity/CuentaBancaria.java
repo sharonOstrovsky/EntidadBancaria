@@ -6,14 +6,14 @@ public class CuentaBancaria {
     private String clave;
     private Cliente cliente;
     private Tarjeta tarjeta;
-    private float saldo;
+    private double saldo;
 
 
     public CuentaBancaria() {
         this.saldo = 0;
     }
 
-    public CuentaBancaria(String usuario, String clave, Cliente cliente, Tarjeta tarjeta, float saldo) {
+    public CuentaBancaria(String usuario, String clave, Cliente cliente, Tarjeta tarjeta, double saldo) {
         this.usuario = usuario;
         this.clave = clave;
         this.cliente = cliente;
@@ -53,11 +53,11 @@ public class CuentaBancaria {
         this.tarjeta = tarjeta;
     }
 
-    public float getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(float saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 

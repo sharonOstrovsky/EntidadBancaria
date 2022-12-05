@@ -10,7 +10,7 @@ public class TarjetaService {
     TreeSet<String> tarjetas = new TreeSet<>(Comparators.comparaNumero);
 
     //crea la trajeta cuando se crea la cuenta bancaria
-    public Tarjeta crearTarjeta(){
+    public Tarjeta crearTarjeta2(){
         Tarjeta tarjeta = new Tarjeta();
         String numTarjeta = "";
 
@@ -28,13 +28,38 @@ public class TarjetaService {
         return tarjeta;
     }
 
-    private boolean validarNumeroTarjeta(String tarjeta, Tarjeta t){
+    public Tarjeta crearTarjeta(){
+        Tarjeta tarjeta = new Tarjeta();
+        String numTarjeta = "";
+
+        numTarjeta = crearNumeroTarjeta();
+
+        if(validarNumeroTarjeta(numTarjeta, tarjeta)){
+            return tarjeta;
+
+        }else{
+            return crearTarjeta();
+        }
+    }
+
+    private String crearNumeroTarjeta(){
+        String numeroTarjeta = "";
+
+        for (int i = 0; i < 16; i++) {//16
+
+            numeroTarjeta += Integer.toString(Aleatorio(0,9));
+
+        }
+        return numeroTarjeta;
+    }
+
+    private boolean validarNumeroTarjeta(String numTarjeta, Tarjeta tarjeta){
          int cantTarjetas = tarjetas.size();
 
-         tarjetas.add(tarjeta);
+         tarjetas.add(numTarjeta);
 
          if(cantTarjetas != tarjetas.size()){
-             t.setNumero(tarjeta);
+             tarjeta.setNumero(numTarjeta);
              return true;
          }else{
              return false;
