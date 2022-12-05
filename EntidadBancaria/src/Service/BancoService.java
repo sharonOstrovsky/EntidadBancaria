@@ -91,27 +91,36 @@ public class BancoService {
         System.out.println("----------BIENVENIDO/A AL BANCO----------");
         System.out.println("");
 
-        System.out.println("¿Ingresar o Registrarse?");
-        String rta = clienteServicio.validarIngresoCadena();
-        if(rta.equalsIgnoreCase("registrarse")){
-            registrarse(banco);
-        }else if(rta.equalsIgnoreCase("ingresar")){
-            do{
 
-                if(cuentaServicio.ingresarACuenta(banco.getCuentas())){
-                    System.out.println("desea ingresar a otra cuenta? (s/n)");
-                    String volver = clienteServicio.validarIngresoCadena();
-                    if(volver.equalsIgnoreCase("n")){
-                        salir = true;
-                        System.out.println("");
-                        System.out.println("----------VUELVA PRONTO----------");
-                        System.out.println("");
+            do{
+                System.out.println("¿Ingresar o Registrarse?");
+                String rta = clienteServicio.validarIngresoCadena();
+                if(rta.equalsIgnoreCase("registrarse")){
+                    registrarse(banco);
+                }else if(rta.equalsIgnoreCase("ingresar")){
+                    if(cuentaServicio.ingresarACuenta(banco.getCuentas())){
+                      /*   System.out.println("desea ingresar a otra cuenta? (s/n)");
+                         String volver = clienteServicio.validarIngresoCadena();
+                         if(volver.equalsIgnoreCase("n")){
+                              salir = true;
+                              System.out.println("");
+                              System.out.println("----------VUELVA PRONTO----------");
+                              System.out.println("");
+                         } */
                     }
                 }
-            }while(!salir);
+                System.out.println("Desea salir? (s/n)");
+                String volver = clienteServicio.validarIngresoCadena();
+                if(volver.equalsIgnoreCase("s")) {
+                    salir = true;
+                }
+
             //boolean ingreso = cuentaServicio.ingresarACuenta(banco.getCuentas());
 
-        }
+        }while(!salir);
+        System.out.println("");
+        System.out.println("----------VUELVA PRONTO----------");
+        System.out.println("");
 
     }
 
@@ -148,3 +157,24 @@ public class BancoService {
 
 
 }
+
+/*
+System.out.println("¿Ingresar o Registrarse?");
+        String rta = clienteServicio.validarIngresoCadena();
+        if(rta.equalsIgnoreCase("registrarse")){
+            registrarse(banco);
+        }else if(rta.equalsIgnoreCase("ingresar")){
+            do{
+
+                if(cuentaServicio.ingresarACuenta(banco.getCuentas())){
+                    System.out.println("desea ingresar a otra cuenta? (s/n)");
+                    String volver = clienteServicio.validarIngresoCadena();
+                    if(volver.equalsIgnoreCase("n")){
+                        salir = true;
+                        System.out.println("");
+                        System.out.println("----------VUELVA PRONTO----------");
+                        System.out.println("");
+                    }
+                }
+            }while(!salir);
+ */
