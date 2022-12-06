@@ -2,8 +2,6 @@ package Service;
 
 import Entity.Cliente;
 
-import java.util.Scanner;
-
 public class ClienteService {
 
 

@@ -9,8 +9,5 @@ public class Main {
         Banco banco = servicoBanco.crearBancoPreArmado();
         servicoBanco.menu(banco);
 
-
-
-
     }
 }

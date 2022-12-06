@@ -1,11 +1,11 @@
 package Service;
-//validar usuario y contraseña de la creacion
+
 import Entity.Cliente;
 import Entity.CuentaBancaria;
 
 import java.util.*;
 
-//falta validar
+
 public class CuentaBancariaService {
 
     TarjetaService tarjetaServicio = new TarjetaService();

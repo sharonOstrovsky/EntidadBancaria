@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class BancoService {
 
-    Scanner input = new Scanner(System.in).useDelimiter("\n");
     CuentaBancariaService cuentaServicio = new CuentaBancariaService();
     ClienteService clienteServicio = new ClienteService();
     TarjetaService tarjetaServicio = new TarjetaService();
