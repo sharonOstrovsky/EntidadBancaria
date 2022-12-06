@@ -1,7 +1,12 @@
+
+package librerias;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
 public class Validaciones {
+    
     public static String validarIngresoCadena(){
         Scanner sc = new Scanner(System.in);
         boolean check = true;
@@ -76,12 +81,12 @@ public class Validaciones {
 
         return num;
     }
-
+    
     public static double validarIngresoNumeroDouble(){
         double num = -1.0;
         Scanner scanner = new Scanner(System.in).useDelimiter("\n");
         do{
-            // Scanner scanner = new Scanner(System.in).useDelimiter("");
+           // Scanner scanner = new Scanner(System.in).useDelimiter("");
             try{
                 num = scanner.nextDouble();
             }catch(InputMismatchException e){
