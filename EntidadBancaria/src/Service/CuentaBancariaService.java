@@ -1,6 +1,5 @@
 package Service;
 //validar usuario y contraseña de la creacion
-//consultar datos
 import Entity.Cliente;
 import Entity.CuentaBancaria;
 
@@ -9,14 +8,9 @@ import java.util.*;
 //falta validar
 public class CuentaBancariaService {
 
-    Scanner input = new Scanner(System.in).useDelimiter("\n");
-    ClienteService clienteServicio = new ClienteService();
     TarjetaService tarjetaServicio = new TarjetaService();
 
 
-    //crea la cuenta bancaria de un cliente pasado por parametro y la devuelve
-    //crea el usuario y la contraseña, y confirmacion de la contraseña creada
-    //agregar validacion del usuario y contraseña(que sea de las de 8 caracteres, que contenga numeros,)
     public CuentaBancaria crearCuenta(Cliente cliente){
         String clave;
         String confirmClave;
@@ -24,14 +18,14 @@ public class CuentaBancariaService {
         CuentaBancaria cuenta = new CuentaBancaria();
 
         System.out.println("Ingrese el nombre de usuario: ");
-        String usuario = input.next();
+        String usuario = librerias.Validaciones.validarIngresoCadenaAlfanumerica();
 
         do{
 
                 System.out.println("Ingrese la constraseña: ");
-                clave = input.next();
+                clave = librerias.Validaciones.validarIngresoCadenaAlfanumerica();
                 System.out.println("Confirme la contraseña: ");
-                confirmClave = input.next();
+                confirmClave = librerias.Validaciones.validarIngresoCadenaAlfanumerica();
                 if(!clave.equals(confirmClave)){
                     System.out.println("las contraseñas no coinciden");
                 }else{
@@ -52,14 +46,6 @@ public class CuentaBancariaService {
 
 
 
-
-
-
-
-    //ingresar a la cuenta bancaria
-    //si no coincide el usuario o la contraseña vuelve a intentarlo (se podria agregar que tenga solo 3 intentos)
-    //una vez que ingreso a la cuenta se abre el menu de las cuentas bancarias hasta que cierra sesion
-    //se llama desde el manu de los bancos
     public void ingresarACuenta( ArrayList<CuentaBancaria> cuentas){
         boolean ingreso = false;
 
@@ -68,25 +54,26 @@ public class CuentaBancariaService {
         System.out.println("");
 
         System.out.print("Usuario: ");
-        String usuario = clienteServicio.validarIngresoCadenaAlfanumerica();
+        String usuario = librerias.Validaciones.validarIngresoCadenaAlfanumerica();
         System.out.print("Contraseña: ");
-        String clave = clienteServicio.validarIngresoCadenaAlfanumerica();
+        String clave = librerias.Validaciones.validarIngresoCadenaAlfanumerica();
 
         CuentaBancaria cuenta = encontrarCuentaPorUsuario(cuentas, usuario);
-    if(cuenta != null){
-        if( !usuario.equals( cuenta.getUsuario() )  || !clave.equals( cuenta.getClave() ) ){
-            System.out.println("clave o contraseña incorrecta, vulva a intentarlo");
-            System.out.println("");
-            System.out.println("----------");
-            System.out.println("");
+
+        if(cuenta != null){
+            if( !usuario.equals( cuenta.getUsuario() )  || !clave.equals( cuenta.getClave() ) ){
+                System.out.println("clave o contraseña incorrecta, vulva a intentarlo");
+                System.out.println("");
+                System.out.println("----------");
+                System.out.println("");
+            }else{
+                System.out.println("");
+                System.out.println("BIENVENIDO "+ cuenta.getCliente().getNombre() + " " + cuenta.getCliente().getApellido());
+                ingreso = true;
+            }
         }else{
-            System.out.println("");
-            System.out.println("BIENVENIDO "+ cuenta.getCliente().getNombre() + " " + cuenta.getCliente().getApellido());
-            ingreso = true;
+            System.out.println("usuario no encontrado");
         }
-    }else{
-        System.out.println("usuario no encontrado");
-    }
 
         if(ingreso){
             menuCuentas(cuentas, cuenta);
@@ -94,8 +81,7 @@ public class CuentaBancariaService {
 
     }
 
-    //menu de las cuentas bancarias
-    //se llama desde ingresarCuentas
+
     public void menuCuentas(ArrayList<CuentaBancaria> cuentas, CuentaBancaria cuenta){
         boolean cerrarSesion = false;
         int opcionElegida;
@@ -109,7 +95,7 @@ public class CuentaBancariaService {
             System.out.println("5. Consultar Datos de la cuenta");
             System.out.println("6. Cerrar Sesion");
 
-            opcionElegida = clienteServicio.validarIngresoNumeroEnero();
+            opcionElegida = librerias.Validaciones.validarIngresoNumeroEnero();
 
             switch(opcionElegida){
                 case 1:
@@ -129,7 +115,7 @@ public class CuentaBancariaService {
                     System.out.println("");
 
                     System.out.print("¿Cuanto dinero deseas ingresar? ");
-                    double dineroIngresar = validarIngresoNumeroDouble();
+                    double dineroIngresar = librerias.Validaciones.validarIngresoNumeroDouble();
                     ingresarDinero(cuenta, dineroIngresar);
 
                     System.out.println("");
@@ -142,7 +128,7 @@ public class CuentaBancariaService {
                     System.out.println("");
 
                     System.out.print("¿Cuanto dinero desea retirar? ");
-                    double dineroRetirar = validarIngresoNumeroDouble();
+                    double dineroRetirar = librerias.Validaciones.validarIngresoNumeroDouble();
                     retirarDinero(cuenta, dineroRetirar);
 
                     System.out.println("");
@@ -186,8 +172,7 @@ public class CuentaBancariaService {
 
     }
 
-    //consultar el sado de la cuenta bancaria
-    //se llama desde el menu de  las cuentas bancarias
+
     private void consultarSaldo(CuentaBancaria cuenta){
         String nombre = cuenta.getCliente().getNombre();
         String apellido = cuenta.getCliente().getApellido();
@@ -197,8 +182,7 @@ public class CuentaBancariaService {
         System.out.println("Saldo: " + saldo);
     }
 
-    //retirar dinero, recibe la cuenta y la cantidad de dinero a retirar
-    ////se llama desde el menu de  las cuentas bancarias
+
     private void retirarDinero(CuentaBancaria cuenta, double dinero){
         double saldo = cuenta.getSaldo();
         double nuevoSaldo;
@@ -210,8 +194,7 @@ public class CuentaBancariaService {
         }
     }
 
-    //ingresar dinero, recibe la cuenta y la cantidad de dinero a ingresar
-    ////se llama desde el menu de  las cuentas bancarias
+
     private void ingresarDinero(CuentaBancaria cuenta, double dinero){
         double saldo = cuenta.getSaldo();
         double nuevoSaldo = saldo + dinero;
@@ -219,19 +202,17 @@ public class CuentaBancariaService {
 
     }
 
-    //cuentas es una lista con todas las cuentas
-    //cuenta es la cuanta bancaria que ingrese y que va a hacer la tranferencia con otra cuenta
-    //se llama desde el menu de las cuentas bancarias
+
     private void tranferencia(ArrayList<CuentaBancaria> cuentas, CuentaBancaria cuenta){
         double saldo = cuenta.getSaldo();
         double nuevoSaldo;
 
         System.out.print("Ingrese el nombre de usuario al que desea transferir: ");
-        String usuarioATrasferir = clienteServicio.validarIngresoCadenaAlfanumerica();
+        String usuarioATrasferir = librerias.Validaciones.validarIngresoCadenaAlfanumerica();
         CuentaBancaria cuentaATrasferir = encontrarCuentaPorUsuario(cuentas, usuarioATrasferir);
         System.out.println("Su saldo actual es: " + saldo);
         System.out.println("¿Cuanto dinero quiere enviar?");
-        double dinero = validarIngresoNumeroDouble();
+        double dinero = librerias.Validaciones.validarIngresoNumeroDouble();
 
         if(saldo < dinero){
             System.out.println("saldo insuficiente");
@@ -260,7 +241,7 @@ public class CuentaBancariaService {
         System.out.println("Saldo: " + saldo);
     }
 
-    //busca a un nombre de usuario en la lista de cuentas bancarias y devuelve la cuenta bancaria que pertece ese usuario
+
     private CuentaBancaria encontrarCuentaPorUsuario(ArrayList<CuentaBancaria> cuentas,String usuarioBuscado){
         String usuarioCliente;
         for (CuentaBancaria clientes : cuentas) {
@@ -272,27 +253,6 @@ public class CuentaBancariaService {
         return null;
 
     }
-
-    public double validarIngresoNumeroDouble(){
-        double num = -1.0;
-        Scanner scanner = new Scanner(System.in).useDelimiter("\n");
-        do{
-           // Scanner scanner = new Scanner(System.in).useDelimiter("");
-            try{
-                num = scanner.nextDouble();
-            }catch(InputMismatchException e){
-                System.out.println(e.getMessage() + ": solo se puede ingresar numeros enteros, intente nuevamente");
-                scanner.nextLine();
-            }catch(Exception e){
-                System.out.println(e.getMessage() + ": Error del sistema, intente nuevamente");
-                scanner.nextLine();
-            }
-
-        }while(num<=0.0);
-        return num;
-    }
-
-
 
 
 }

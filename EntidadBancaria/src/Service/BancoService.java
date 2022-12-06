@@ -7,9 +7,7 @@ import Entity.CuentaBancaria;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//crearBanco (arraylist de 10 cuentas bancarias)
-//validar que sea mayor de edad para crear cuenta bancaria
-//menu con opciones (ingresar, retirar, transferir, cerrar sesion) ->primero ingreso a la cuenta
+
 public class BancoService {
 
     Scanner input = new Scanner(System.in).useDelimiter("\n");
@@ -17,7 +15,7 @@ public class BancoService {
     ClienteService clienteServicio = new ClienteService();
     TarjetaService tarjetaServicio = new TarjetaService();
 
-    //creo un banco con 10 cuentas bancarias
+
     public Banco crearBanco(){
 
         Banco banco = new Banco();
@@ -79,8 +77,7 @@ public class BancoService {
 
     }
 
-    //menu del banco
-    //podes ingresar a una cuenta o registrar una nueva
+
     public void menu(Banco banco){
 
         boolean salirDelMenuBanco = false;
@@ -92,7 +89,7 @@ public class BancoService {
 
             do{
                 System.out.println("¿Ingresar o Registrarse?");
-                String rta = clienteServicio.validarIngresoCadena();
+                String rta = librerias.Validaciones.validarIngresoCadena();
                 if(opcionesRegistrar(rta)){
                     registrarse(banco);
                 }else if(opcionesIngresar(rta)){
@@ -101,7 +98,7 @@ public class BancoService {
                     System.out.println("opcion no valida");
                 }
                 System.out.println("Desea salir? (s/n)");
-                String salir = clienteServicio.validarIngresoCadena();
+                String salir = librerias.Validaciones.validarIngresoCadena();
                 if(opcionesSalir(salir)) {
                     salirDelMenuBanco = true;
                 }
@@ -114,8 +111,6 @@ public class BancoService {
     }
 
 
-    //registrar una cuenta bancaria nueva en el banco
-    //se llama desde el menu de los bancos
     private void registrarse(Banco banco){
         System.out.println("");
         System.out.println("----------REGISTRARSE----------");
@@ -138,8 +133,7 @@ public class BancoService {
         System.out.println("");
     }
 
-    //ver si el cliente es mayor de edad
-    //se llama desde crear banco para ver si puede crearse una cuenta bancaria
+
     private boolean esMayorEdad(Cliente cliente){
         int edad = cliente.getEdad();
         return edad >= 18;

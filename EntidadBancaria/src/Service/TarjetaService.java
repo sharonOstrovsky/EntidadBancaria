@@ -9,24 +9,7 @@ public class TarjetaService {
 
     TreeSet<String> tarjetas = new TreeSet<>(Comparators.comparaNumero);
 
-    //crea la trajeta cuando se crea la cuenta bancaria
-    public Tarjeta crearTarjeta2(){
-        Tarjeta tarjeta = new Tarjeta();
-        String numTarjeta = "";
 
-        for (int i = 0; i < 16; i++) {
-
-            numTarjeta += Integer.toString(Aleatorio(0,9));
-
-        }
-
-        if(!validarNumeroTarjeta(numTarjeta, tarjeta)){
-            tarjeta = crearTarjeta();
-
-        }
-
-        return tarjeta;
-    }
 
     public Tarjeta crearTarjeta(){
         Tarjeta tarjeta = new Tarjeta();
@@ -66,11 +49,7 @@ public class TarjetaService {
 
          }
 
-
-
     }
-
-
 
 
 
