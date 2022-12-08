@@ -44,6 +44,15 @@ public class CuentaBancariaService {
 
     }
 
+    public boolean validarClave(String clave){
+
+        if(clave.length() < 8){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 
 
     public void ingresarACuenta( ArrayList<CuentaBancaria> cuentas){
@@ -236,7 +245,7 @@ public class CuentaBancariaService {
         String tarjeta = cuenta.getTarjeta().getNumero();
         double saldo = cuenta.getSaldo();
 
-        System.out.println("Titular: " + nombre + apellido);
+        System.out.println("Titular: " + nombre + " " + apellido);
         System.out.println("Numero de Tarjeta: " + tarjeta);
         System.out.println("Saldo: " + saldo);
     }

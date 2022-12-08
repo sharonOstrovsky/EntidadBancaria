@@ -124,12 +124,14 @@ public class BancoService {
             cuentasAux = banco.getCuentas();
             cuentasAux.add(cuenta);
             banco.setCuentas(cuentasAux);
+
+            System.out.println("");
+            System.out.println("----------CUENTA REGISTRADA----------");
+            System.out.println("");
         }
 
 
-        System.out.println("");
-        System.out.println("----------CUENTA REGISTRADA----------");
-        System.out.println("");
+
     }
 
 
